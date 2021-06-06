@@ -95,7 +95,7 @@ tabContainer.addEventListener('click', e => {
 
 
 //NOTE: fade on hover effect for nav
-const handleHover = function(e) {
+const handleHover = function (e) {
   if (e.target.classList.contains("nav__link")) {
     const link = e.target;
     const siblings = link.closest(".nav").querySelectorAll(".nav__link");
@@ -124,7 +124,7 @@ nav.addEventListener("mouseout", handleHover.bind(1));
 const stickyNav = (entries, observer) => {
   const [entry] = entries;
 
-  if(!entry.isIntersecting) nav.classList.add("sticky");
+  if (!entry.isIntersecting) nav.classList.add("sticky");
   else nav.classList.remove("sticky");
 }
 
@@ -143,7 +143,7 @@ const sections = document.querySelectorAll(".section");
 
 const revealSec = (entries, observer) => {
   const [entry] = entries;
-  if(!entry.isIntersecting) return;
+  if (!entry.isIntersecting) return;
   entry.target.classList.remove("section--hidden");
   observer.unobserve(entry.target);
 }
@@ -154,10 +154,10 @@ const secObs = {
 }
 
 const sectionObserver = new IntersectionObserver(revealSec, secObs);
-sections.forEach(sec => {
-  sectionObserver.observe(sec);
-  sec.classList.add("section--hidden");
-});
+// sections.forEach(sec => {
+//   sectionObserver.observe(sec);
+//   sec.classList.add("section--hidden");
+// });
 
 //NOTE: lazy loading
 
@@ -178,3 +178,47 @@ const opt = {
 }
 const lazyImg = new IntersectionObserver(loadImg, opt);
 targetImgs.forEach(img => lazyImg.observe(img));
+
+//slider component
+
+const slides = document.querySelectorAll(".slide");
+const slider = document.querySelector(".slider");
+const nextBtn = document.querySelector('.slider__btn--right');
+const prevBtn = document.querySelector('.slider__btn--left');
+
+// slider.style.transform = 'scale(0.2) translateX(-1200px)';
+// slider.style.overflow = "visible";
+
+let currSlide = 0;
+// slides.forEach((slide, i) => {
+//   // slide.style.transform = "scale(0.3)";
+//   slide.style.transform = `translateX(${100 * i}%)`;
+// })
+// slides.forEach((slide, i) => slide.style.transform = `translate(${100 * i})`);
+
+const goToSlide = (slide) => {
+  slides.forEach((s, i) => {
+    s.style.transform = `translateX(${100 * (i - slide)}%)`;
+  })
+}
+goToSlide(0);
+
+nextBtn.addEventListener('click', () => {
+
+  if (currSlide === slides.length - 1) {
+    currSlide = 0;
+  } else {
+    currSlide++;
+  }
+
+  goToSlide(currSlide);
+})
+
+prevBtn.addEventListener('click', () => {
+  if (currSlide === 0) {
+    currSlide = slides.length - 1;
+  } else {
+    currSlide--;
+  }
+  goToSlide(currSlide);
+})
