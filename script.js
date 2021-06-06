@@ -186,15 +186,7 @@ const slider = document.querySelector(".slider");
 const nextBtn = document.querySelector('.slider__btn--right');
 const prevBtn = document.querySelector('.slider__btn--left');
 
-// slider.style.transform = 'scale(0.2) translateX(-1200px)';
-// slider.style.overflow = "visible";
-
 let currSlide = 0;
-// slides.forEach((slide, i) => {
-//   // slide.style.transform = "scale(0.3)";
-//   slide.style.transform = `translateX(${100 * i}%)`;
-// })
-// slides.forEach((slide, i) => slide.style.transform = `translate(${100 * i})`);
 
 const goToSlide = (slide) => {
   slides.forEach((s, i) => {
